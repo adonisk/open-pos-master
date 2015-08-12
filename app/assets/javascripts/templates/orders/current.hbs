@@ -1,0 +1,35 @@
+<div {{bind-attr class=":row editing:editing"}}>
+	<div class="receipt" >
+		<button {{action 'editOrder'}} class="button small right">Edit</button>
+		<ul class="no-bullet clear line-items row collapse">
+			{{#each lineItem in lineItems}}
+				{{partial 'lineItem'}}
+			{{/each}}
+			{{#if customLineItem}}
+				{{partial "orders/add_custom_form"}}
+			{{else}}
+				<a href="#" {{action 'setUpCustomLineItem' target="controller"}} class='left'>Add Line Item</a>
+			{{/if}}
+			<li class="sub text-right">
+				Sub Total ${{money-display cents}}
+			</li>
+			<li class="sub text-right">
+				Tax: ${{money-display tax}}<br>
+			</li>
+	    <li id="total"><h3>Total <span>{{money-display total}}</span></h3></li>
+		</ul>
+		<div class="text-center">
+			<button {{action 'payment'}} class="button small">take payment</button>
+		</div>
+	</div>
+	<div class="dashboard">
+		<div class="products">
+			{{render 'category'}}
+			{{outlet}}
+		</div>
+		<div class="categories">
+			{{render 'categories'}}
+		</div>
+	</div>
+
+</div>
